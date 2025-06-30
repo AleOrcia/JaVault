@@ -55,6 +55,9 @@ public class JaVaultController {
     	
     	if(this.vault != null) vault.clearAll();
     	
+    	if(this.key != null) this.key = null; //aiuta il GC anche se non azzera
+
+    	
     	try {
 			VaultUtils.releaseVaultLock();
 		} catch (VaultException e) {
