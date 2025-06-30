@@ -75,6 +75,7 @@ public class JaVaultGUI {
 
                 try {
                     controller.openVault(password);
+                    controller.saveVault();
                     break;  // se va bene esci dal loop
                 } catch (InvalidPasswordException e) {
                     JOptionPane.showMessageDialog(frame, "Master password errata", "Errore", JOptionPane.ERROR_MESSAGE);
