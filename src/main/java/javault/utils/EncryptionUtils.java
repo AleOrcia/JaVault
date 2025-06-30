@@ -87,9 +87,9 @@ public class EncryptionUtils {
 		try {
 			cipher = Cipher.getInstance("AES/GCM/NoPadding");
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-			System.err.println("Errore del cifrario. Algoritmo non eistente? Padding non esistente?");
-			e.printStackTrace();
-		}
+			System.err.println("Errore del cifrario. Algoritmo non esistente? Padding non esistente?");
+		    throw new IllegalStateException("Errore del cifrario. Algoritmo non esistente? Padding non esistente?");
+		    }
         byte[] iv = new byte[12];
         secureRandom.nextBytes(iv);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
@@ -98,14 +98,14 @@ public class EncryptionUtils {
 			cipher.init(Cipher.ENCRYPT_MODE, key, spec);
 		} catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
 			System.err.println("Errore del cifrario. Chiave invalida? Parametro invalido per l'algoritmo scelto?");
-			e.printStackTrace();
+		    throw new IllegalStateException("Errore del cifrario. Chiave invalida? Parametro invalido per l'algoritmo scelto?");
 		}
         byte[] ciphertext = null;
 		try {
 			ciphertext = cipher.doFinal(plaintext);
 		} catch (IllegalBlockSizeException | BadPaddingException e) {
 			System.err.println("Errore del cifrario. Padding errato? Dimensione del blocco errata?");
-			e.printStackTrace();
+			throw new IllegalStateException("Errore del cifrario. Padding errato? Dimensione del blocco errata?");
 		}
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

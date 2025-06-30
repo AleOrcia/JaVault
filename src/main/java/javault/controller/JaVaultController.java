@@ -47,10 +47,14 @@ public class JaVaultController {
     }
     
     /**
+     * Cancella i dati dalla memoria RAM.
      * Rilascia il lock sul vault.
      * In caso di errore, stampa lo stacktrace ma non rilancia eccezioni.
      */
     public void closeVault() {
+    	
+    	if(this.vault != null) vault.clearAll();
+    	
     	try {
 			VaultUtils.releaseVaultLock();
 		} catch (VaultException e) {
